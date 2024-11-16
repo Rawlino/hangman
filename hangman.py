@@ -19,28 +19,40 @@ def guessing_game(list):
 
     #while loop for going through guesses till correct word is formed 
     while secret_word != "".join(placeholder):
+        #input from user, puts it in lowercase and strips all whitespace
         guess = input("Enter guess: ").lower().strip()
+        
+        #exit input
         if guess == '':
             break
+
+        #edge cases
         elif len(guess) > 1:
             print("Sorry, only one letter guesses, okay?")
         elif guess in int_checker:
             print("Sorry, please only use letters, not integers.")
         elif guess in correct_guesses or guess in incorrect_guesses:
             print("You already guessed that letter! And don't worry, there are no duplicate letters in these words.")
+
+        #if letter in secret_word: add letter to list bank (print it), edit placeholder word, then print out guess count
         elif guess in secret_word:
             correct_guesses.append(guess)
             index = index_finder(secret_word, guess)
             placeholder[index] = guess
             print(f"Nice that's correct! Here's what you got from the word so far: {"".join(placeholder)}\nThese are the letters you've guessed correctly:\n{correct_guesses}\n")
             print(f"Your total guesses: {len(correct_guesses) + len(incorrect_guesses)}\nYour correct guess count is: {len(correct_guesses)}\nYour inccorect guess count is: {len(incorrect_guesses)}\n")
+        
+        #if letter not in secret_word: add letter to list bank (print it) and print out guess count
         elif guess not in secret_word:
             incorrect_guesses.append(guess)
             print(f"Oof! Sorry that's not in the word, here are your incorrect guesses:\n{incorrect_guesses}\nThis is what the word looks like right now:{"".join(placeholder)}\n")
             print(f"Your total guesses: {len(correct_guesses) + len(incorrect_guesses)}\nYour correct guess count is: {len(correct_guesses)}\nYour inccorect guess count is: {len(incorrect_guesses)}\n")
     
+    #congratulation message and final results
     print(f"Woot! Woot! You got it! Here are your final results:\nWord was: {secret_word}")
     print(f"Your total guesses: {len(correct_guesses) + len(incorrect_guesses)}\nYour correct guess count is: {len(correct_guesses)}\nYour inccorect guess count is: {len(incorrect_guesses)}\n")
+    
+    #asking user if they'd like to go again, if yes sends them back. if no, ends program.
     question = input("Would you like to go again? [Y/N]").lower().strip()
     if question == "" or question == "y":
         print("Sweet! Let's go again.")
