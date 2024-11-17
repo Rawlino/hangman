@@ -24,7 +24,7 @@ def guessing_game(list):
         
         #exit input
         if guess == '':
-            break
+            return
 
         #edge cases
         elif len(guess) > 1:
@@ -47,9 +47,14 @@ def guessing_game(list):
             incorrect_guesses.append(guess)
             print(f"Oof! Sorry that's not in the word, here are your incorrect guesses:\n{incorrect_guesses}\nThis is what the word looks like right now:{"".join(placeholder)}\n")
             print(f"Your total guesses: {len(correct_guesses) + len(incorrect_guesses)}\nYour correct guess count is: {len(correct_guesses)}\nYour inccorect guess count is: {len(incorrect_guesses)}\n")
-    
+            hangman(len(incorrect_guesses))
+
     #congratulation message and final results
-    print(f"Woot! Woot! You got it! Here are your final results:\nWord was: {secret_word}")
+    if len(incorrect_guesses) < 6:
+        print("Yaaaay! We saved our friend!")
+    else:
+        print("Woot! Woot! You got it!")
+    print(f"Here are your final results:\nWord was: {secret_word}")
     print(f"Your total guesses: {len(correct_guesses) + len(incorrect_guesses)}\nYour correct guess count is: {len(correct_guesses)}\nYour inccorect guess count is: {len(incorrect_guesses)}\n")
     
     #asking user if they'd like to go again, if yes sends them back. if no, ends program.
@@ -69,6 +74,53 @@ def index_finder(word, letter):
         else:
             location += 1
     return location
+
+#graphics for hangman
+def hangman(count):
+    if count > 6:
+        return
+    elif count == 1:
+        print("   |----|")
+        print("   O    |")
+        print("        |")
+        print("        |")
+        print("________|")
+        print("Oh no! They got a headshot of our friend, but they won't find them, right?\n")
+    elif count == 2:
+        print("   |----|")
+        print("   O    |")
+        print("   |    |")
+        print("        |")
+        print("________|")
+        print("Wait, you're telling me they know where they are?\n")
+    elif count == 3:
+        print("   |----|")
+        print("   O    |")
+        print("  -|    |")
+        print("        |")
+        print("________|")
+        print("No way they're hunting them right now.\n")
+    elif count == 4:
+        print("   |----|")
+        print("   O    |")
+        print("  -|-   |")
+        print("        |")
+        print("________|")
+        print("How much do you bet they're going to find them after all the money we spent?\n")
+    elif count == 5:
+        print("   |----|")
+        print("   O    |")
+        print("  -|-   |")
+        print("  /     |")
+        print("________|")
+        print("This is a joke right? Our friend has gotta be safe.\n")
+    elif count == 6:
+        print("   |----|")
+        print("   O    |")
+        print("  -|-   |")
+        print("  / \   |")
+        print("________|")
+        print("Oh no! Our friend got caught, but keep on guessing!\n")
 
 def main():
     #list of words for program to choose from
